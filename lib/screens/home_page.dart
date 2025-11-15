@@ -56,29 +56,25 @@ class _HomePageState extends State<HomePage> {
                       child: Image.asset("assets/images/plant-one.png"),
                     ),
                     SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        Constants.titleOne,
-                        style: TextStyle(
-                          fontFamily: "bYekan",
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Constants.primaryColor,
-                        ),
+                    Text(
+                      Constants.titleOne,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "bYekan",
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Constants.primaryColor,
                       ),
                     ),
                     SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        Constants.descriptionOne,
-                        style: TextStyle(
-                          fontFamily: "iranSans",
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey,
-                        ),
+                    Text(
+                      Constants.descriptionOne,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "iranSans",
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
