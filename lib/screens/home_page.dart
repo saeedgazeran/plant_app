@@ -46,41 +46,70 @@ class _HomePageState extends State<HomePage> {
             },
             controller: _pageController,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 350,
-                      child: Image.asset("assets/images/plant-one.png"),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      Constants.titleOne,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: "bYekan",
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Constants.primaryColor,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      Constants.descriptionOne,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: "iranSans",
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+              CreatePage(
+                image: "assets/images/plant-one.png",
+                title: Constants.titleOne,
+                discription: Constants.descriptionOne,
+              ),
+              CreatePage(
+                image: "assets/images/plant-two.png",
+                title: Constants.titleTwo,
+                discription: Constants.descriptionTwo,
+              ),
+              CreatePage(
+                image: "assets/images/plant-three.png",
+                title: Constants.titleThree,
+                discription: Constants.descriptionThree,
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CreatePage extends StatelessWidget {
+  final String image;
+  final String title;
+  final String discription;
+
+  const CreatePage({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.discription,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 50, right: 50),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 350, child: Image.asset(image)),
+          SizedBox(height: 20),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: "bYekan",
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Constants.primaryColor,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            discription,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: "iranSans",
+              fontSize: 15.0,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey,
+            ),
           ),
         ],
       ),
