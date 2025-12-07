@@ -31,9 +31,8 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.only(bottom: 20),
+      body: SingleChildScrollView(
+        child: Column(
           children: <Widget>[
             //Search Box
             Padding(
@@ -117,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             //Product Section 1
             SizedBox(
               height: size.height * 0.32,
@@ -234,7 +233,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             //Section Title
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(right: 18, top: 20, bottom: 10),
               child: Align(
                 alignment: Alignment.centerRight,
