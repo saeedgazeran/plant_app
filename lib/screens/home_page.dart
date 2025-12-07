@@ -30,15 +30,17 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.only(bottom: 20),
           children: <Widget>[
-            // Search Box
+            //Search Box
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Center(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
@@ -55,14 +57,12 @@ class _HomePageState extends State<HomePage> {
                           textDirection: TextDirection.rtl,
                           child: TextField(
                             cursorColor: Constants.primaryColor,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding: EdgeInsets.only(right: 5),
                               hintText: "جستجو ...",
                               border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
                             ),
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "iranSans",
                               fontSize: 14,
                             ),
@@ -78,10 +78,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            // Category
+            //Categories
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              height: 70,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 18.0,
+                vertical: 10.0,
+              ),
+              height: 70.0,
               width: size.width,
               child: ListView.builder(
                 reverse: true,
@@ -99,8 +102,8 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         _plantTypes[index],
                         style: TextStyle(
-                          fontFamily: "iranSans",
-                          fontSize: 16,
+                          fontFamily: 'iranSans',
+                          fontSize: 16.0,
                           fontWeight: selectedIndex == index
                               ? FontWeight.bold
                               : FontWeight.w300,
@@ -114,96 +117,108 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            //Product 1
+            const SizedBox(height: 10),
+            //Product Section 1
             SizedBox(
-              height: size.height * 0.3,
+              height: size.height * 0.32,
               child: ListView.builder(
                 reverse: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: _plantList.length,
                 itemBuilder: (context, index) {
+                  final plant = _plantList[index];
+
                   return Container(
                     width: 200,
-                    margin: EdgeInsets.symmetric(horizontal: 18),
+                    margin: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                      color: Constants.primaryColor.withValues(alpha: 0.8),
+                      color: Constants.primaryColor.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Stack(
                       children: <Widget>[
+                        /// ❤️ Favorite
                         Positioned(
                           top: 10,
-                          right: 20,
+                          right: 10,
                           child: Container(
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
+                              shape: BoxShape.circle,
                             ),
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  bool isFavorated = toggleIsFavorit(
-                                    (_plantList[index].isFavorated),
+                                  plant.isFavorated = toggleIsFavorit(
+                                    plant.isFavorated,
                                   );
-                                  _plantList[index].isFavorated = isFavorated;
                                 });
                               },
-                              icon: _plantList[index].isFavorated == true
-                                  ? Icon(Icons.favorite)
-                                  : Icon(Icons.favorite_border_outlined),
+                              icon: Icon(
+                                plant.isFavorated
+                                    ? Icons.favorite
+                                    : Icons.favorite_border_outlined,
+                                color: Constants.primaryColor,
+                              ),
                             ),
                           ),
                         ),
-                        Positioned(
-                          left: 50,
-                          right: 50,
+
+                        /// 🌱 Image
+                        Positioned.fill(
                           top: 50,
                           bottom: 50,
-                          child: Image.asset(_plantList[index].imageURL),
+                          child: Image.asset(
+                            plant.imageURL,
+                            fit: BoxFit.contain,
+                          ),
                         ),
+
+                        /// 💰 Price
                         Positioned(
-                          bottom: 15,
-                          left: 20,
+                          bottom: 12,
+                          left: 12,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 3,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              r"تومان" +
-                                  _plantList[index].price
-                                      .toString()
-                                      .farsiNumber,
+                              _plantList[index].price.toString().farsiNumber +
+                                  r"تومان",
                               style: TextStyle(
                                 color: Constants.primaryColor,
                                 fontSize: 16,
                               ),
+                              textDirection: TextDirection.rtl,
                             ),
                           ),
                         ),
+
+                        /// 📝 Name & Category
                         Positioned(
-                          bottom: 15,
-                          right: 20,
+                          bottom: 12,
+                          right: 12,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                _plantList[index].category,
-                                style: TextStyle(
+                                plant.category,
+                                style: const TextStyle(
                                   color: Colors.white70,
                                   fontFamily: "bYekan",
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                _plantList[index].plantName,
-                                style: TextStyle(
+                                plant.plantName,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: "bYekan",
                                   fontSize: 16,
@@ -218,107 +233,101 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            //Text
-            Container(
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: 18, top: 20, bottom: 15),
-              child: Text(
-                "گیاهان جدید",
-                style: TextStyle(
-                  fontFamily: "Lalezar",
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            //Section Title
+            const Padding(
+              padding: EdgeInsets.only(right: 18, top: 20, bottom: 10),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "گیاهان جدید",
+                  style: TextStyle(
+                    fontFamily: "Lalezar",
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            //Product 2
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 18),
-              height: size.height * 0.3,
-              child: ListView.builder(
-                itemCount: _plantList.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Constants.primaryColor.withValues(alpha: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: 80,
-                    width: size.width,
-                    margin: EdgeInsets.only(bottom: 10, top: 10),
-                    padding: EdgeInsets.only(left: 10, top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            SizedBox(
-                              height: 20,
-                              child: Image.asset(
-                                "assets/images/PriceUnit-green.png",
-                              ),
+            //Product Section 2
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              itemCount: _plantList.length,
+              itemBuilder: (context, index) {
+                final plant = _plantList[index];
+
+                return Container(
+                  height: 90,
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Constants.primaryColor.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      /// Price
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                            child: Image.asset(
+                              "assets/images/PriceUnit-green.png",
                             ),
-                            SizedBox(width: 5),
-                            Text(
-                              _plantList[index].price.toString().farsiNumber,
-                              style: TextStyle(
-                                fontFamily: "Lalezar",
-                                color: Constants.primaryColor,
-                                fontSize: 20,
-                              ),
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            plant.price.toString().farsiNumber,
+                            style: TextStyle(
+                              fontFamily: "Lalezar",
+                              color: Constants.primaryColor,
+                              fontSize: 18,
                             ),
-                          ],
-                        ),
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: <Widget>[
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: Constants.primaryColor.withValues(
-                                  alpha: 8,
+                          ),
+                        ],
+                      ),
+
+                      /// Info + Image
+                      Row(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                plant.category,
+                                style: const TextStyle(
+                                  fontFamily: "bYekan",
+                                  fontSize: 13,
                                 ),
-                                shape: BoxShape.circle,
                               ),
-                            ),
-                            Positioned(
-                              bottom: 5,
-                              left: 0,
-                              right: 0,
-                              child: SizedBox(
-                                height: 80,
-                                child: Image.asset(_plantList[index].imageURL),
+                              Text(
+                                plant.plantName,
+                                style: TextStyle(
+                                  color: Constants.blackColor,
+                                  fontFamily: "bYekan",
+                                  fontSize: 16,
+                                ),
                               ),
+                            ],
+                          ),
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: Image.asset(
+                              plant.imageURL,
+                              fit: BoxFit.contain,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Text(
-                                  _plantList[index].category,
-                                  style: TextStyle(
-                                    fontFamily: "bYekan",
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  _plantList[index].plantName,
-                                  style: TextStyle(
-                                    color: Constants.blackColor,
-                                    fontFamily: "bYekan",
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -329,7 +338,7 @@ class _HomePageState extends State<HomePage> {
 
 extension FarsiNumberNumberExtension on String {
   String get farsiNumber {
-    const english = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    const english = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const farsi = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     String text = this;
     for (var i = 0; i < english.length; i++) {

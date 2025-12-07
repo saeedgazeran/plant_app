@@ -34,7 +34,7 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.only(top: 30),
           child: Row(
