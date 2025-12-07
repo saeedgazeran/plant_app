@@ -282,6 +282,7 @@ class _HomePageState extends State<HomePage> {
                             plant.price.toString().farsiNumber,
                             style: TextStyle(
                               fontFamily: "Lalezar",
+                              fontWeight: FontWeight.bold,
                               color: Constants.primaryColor,
                               fontSize: 18,
                             ),
