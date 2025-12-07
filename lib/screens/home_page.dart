@@ -142,7 +142,14 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(50),
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  bool isFavorated = toggleIsFavorit(
+                                    (_plantList[index].isFavorated),
+                                  );
+                                  _plantList[index].isFavorated = isFavorated;
+                                });
+                              },
                               icon: _plantList[index].isFavorated == true
                                   ? Icon(Icons.favorite)
                                   : Icon(Icons.favorite_border_outlined),
@@ -169,7 +176,10 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              r"$" + _plantList[index].price.toString(),
+                              r"تومان" +
+                                  _plantList[index].price
+                                      .toString()
+                                      .farsiNumber,
                               style: TextStyle(
                                 color: Constants.primaryColor,
                                 fontSize: 16,
@@ -208,9 +218,123 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            //Text
+            Container(
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.only(right: 18, top: 20, bottom: 15),
+              child: Text(
+                "گیاهان جدید",
+                style: TextStyle(
+                  fontFamily: "Lalezar",
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            //Product 2
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 18),
+              height: size.height * 0.3,
+              child: ListView.builder(
+                itemCount: _plantList.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Constants.primaryColor.withValues(alpha: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    height: 80,
+                    width: size.width,
+                    margin: EdgeInsets.only(bottom: 10, top: 10),
+                    padding: EdgeInsets.only(left: 10, top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              child: Image.asset(
+                                "assets/images/PriceUnit-green.png",
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              _plantList[index].price.toString().farsiNumber,
+                              style: TextStyle(
+                                fontFamily: "Lalezar",
+                                color: Constants.primaryColor,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Constants.primaryColor.withValues(
+                                  alpha: 8,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 5,
+                              left: 0,
+                              right: 0,
+                              child: SizedBox(
+                                height: 80,
+                                child: Image.asset(_plantList[index].imageURL),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  _plantList[index].category,
+                                  style: TextStyle(
+                                    fontFamily: "bYekan",
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                Text(
+                                  _plantList[index].plantName,
+                                  style: TextStyle(
+                                    color: Constants.blackColor,
+                                    fontFamily: "bYekan",
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+extension FarsiNumberNumberExtension on String {
+  String get farsiNumber {
+    const english = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    const farsi = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+    String text = this;
+    for (var i = 0; i < english.length; i++) {
+      text = text.replaceAll(english[i], farsi[i]);
+    }
+    return text;
   }
 }
