@@ -9,6 +9,7 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -64,7 +65,11 @@ class _ScanPageState extends State<ScanPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("این قسمت بعدا اضافه میشود")),
+                        );
+                      },
                       child: Image.asset(
                         "assets/images/code-scan.png",
                         height: 100,
