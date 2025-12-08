@@ -63,7 +63,13 @@ class _ScanPageState extends State<ScanPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset("assets/images/code-scan.png", height: 100),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        "assets/images/code-scan.png",
+                        height: 100,
+                      ),
+                    ),
                     SizedBox(height: 20),
                     Text(
                       "برای اسکن گیاه کلیک کنید",
