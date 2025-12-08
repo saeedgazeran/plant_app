@@ -9,7 +9,6 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -67,7 +66,10 @@ class _ScanPageState extends State<ScanPage> {
                     GestureDetector(
                       onTap: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("این قسمت بعدا اضافه میشود")),
+                          SnackBar(
+                            content: Text("این قسمت بعدا اضافه میشود"),
+                            backgroundColor: Constants.primaryColor,
+                          ),
                         );
                       },
                       child: Image.asset(
